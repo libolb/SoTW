@@ -1,7 +1,6 @@
-# Semantic-oriented Robust Text Watermark for LLMs
+# Semantic-Oriented Robust Sentence Level Text Watermark for Large Language Models
 
-This repository provides the source code for ACL ARR 2024 December blind review.
-
+This is the official implementation of the "Semantic-Oriented Robust Sentence Level Text Watermark for Large Language Models", which has been submitted to IEEE Transactions on Computational Social Systems.
 
 ## Introduction
 
