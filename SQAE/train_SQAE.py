@@ -103,22 +103,20 @@ def loss_function(x1, x_recon1, z1, z_q1, x2, x_recon2, z2, z_q2):
 
 
 
-    margin = alpha
-    cont_code_dist = cos_distance(x1, x2)
-    discrete_code_dist = cos_distance(z1, z2)
-    mask_a = (cont_code_dist < alpha).float()
-    mask_b = (cont_code_dist >= alpha).float()
-    # positive_loss = discrete_code_dist ** 2
-    # negative_loss = torch.relu(margin - discrete_code_dist) ** 2
-    positive_loss = torch.abs(discrete_code_dist)
-    negative_loss = torch.abs(cont_code_dist - discrete_code_dist)
-
-    contrastive_lossp = (mask_a * positive_loss).sum()/ torch.max(mask_a.sum(), torch.tensor(1.0))
-    contrastive_lossn = (mask_b * negative_loss).sum()/ torch.max(mask_b.sum(), torch.tensor(1.0))
-    contrastive_loss = (contrastive_lossp + contrastive_lossn) / 2
-
-    return lambda1 *(recon_loss + vq_loss) + (1-lambda1)*contrastive_loss,recon_loss
-    # return recon_loss + vq_loss,recon_loss
+    labels_1 = torch.tensor([i for i in range(z1.shape[0])], device=device)
+    labels_2 = torch.tensor([i for i in range(z1.shape[0])], device=device)
+    projections = torch.cat([z1, z2], dim=0)
+    labels = torch.cat([labels_1, labels_2], dim=0)
+    projections = F.normalize(projections, dim=-1)
+    sim_matrix = projections @ projections.T / temperature
+    sim_matrix = torch.exp(sim_matrix)
+    mask = torch.eq(labels.unsqueeze(1), labels.unsqueeze(0))
+    mask = mask.float() - torch.eye(labels.shape[0], device=device)
+    numerator = (sim_matrix * mask).sum(dim=-1)
+    denominator = sim_matrix.sum(dim=-1) - sim_matrix.diag()
+    infonce_loss = -torch.log(numerator / denominator)
+    infonce_loss = infonce_loss.mean()
+    return lambda1 *(recon_loss + vq_loss) + (1-lambda1)*infonce_loss,recon_loss
 
 
 class VectorDataset(Dataset):
