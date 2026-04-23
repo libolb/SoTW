@@ -31,7 +31,7 @@ def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--device', type=str, default="cuda")
 
-    parser.add_argument('--data_size', type=int,default=1)
+    parser.add_argument('--data_size', type=int,default=3)
     parser.add_argument('--out_dataset_path',
                         default="./results.json")
     
