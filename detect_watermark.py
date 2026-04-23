@@ -22,7 +22,7 @@ def parse_args():
                         default='BAAI/bge-m3')
 
     parser.add_argument('--lmbd', type=float, default=0.5, help='ratio of valid sentences')
-    parser.add_argument('--data_size', type=int, default=1, help='ratio of valid sentences')
+    parser.add_argument('--data_size', type=int, default=3, help='ratio of valid sentences')
     parser.add_argument('--min_width', type=int, default=1,
                         help='dimension of the subspaces')
     parser.add_argument('--checkpoint', type=str, default="./SQAE/SQAE.pth",
