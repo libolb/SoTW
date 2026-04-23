@@ -33,25 +33,6 @@ Here are the versions of packages we use for the implementation of experiments.
 
 
 
-## Training SQAE
-
-First, generate the embedding of MultiNLI as training data: 
-
-```console
-cd SQAE
-python generate_embeddings_multi_nli.py \
---input_path = The path of multi_nli \
---output_path = Output result path \
---model_path = Embedding model, e.g., 'BAAI\bge-m3' \
-```
-
-
-Then, training SQAE:
-
-```console
-python train_SQAE.py 
-```
-
 
 
 
@@ -63,12 +44,7 @@ Here is the process of watermark generation:
 ```console
 python gen_watermark.py \
 --model = LLMs, e.g., 'Llama-2-7b-chat-hf' \
---data = Prompts data path \
---out_dataset_path = Results path \
---data_size = Number of generated watermark texts \
 --embedder = Embedding model, e.g., 'BAAI\bge-m3' \
---checkpoint = Path of SQAE\
---checkpoint_dim = Number of sentence partitions constructed by SQAE \
 ```
 
 
@@ -79,12 +55,7 @@ Here is the process of watermark detection:
 
 ```console
 python detect_watermark.py \
---dataset_path = Path of text to be detected \
---out_dataset_path = Results path \
---data_size = Number of detected watermark texts \
 --embedder = Embedding model, e.g., 'BAAI\bge-m3' \
---checkpoint = Path of SQAE\
---checkpoint_dim = Number of sentence partitions constructed by SQAE \
 ```
 
 
