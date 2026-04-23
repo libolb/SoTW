@@ -58,4 +58,14 @@ python detect_watermark.py \
 --embedder = Embedding model, e.g., 'BAAI\bge-m3' \
 ```
 
-
+# Bibtex
+If you use this code in your work, please cite [our paper]:
+```
+@article{li2026semantic,
+  title={Semantic-Oriented Robust Sentence Level Text Watermark for Large Language Models},
+  author={Li, Bo and Zhang, Kun and Song, Cheng and Chen, Xi and Zhou, Hailin and Hong, Richang},
+  journal={IEEE Transactions on Computational Social Systems},
+  year={2026},
+  publisher={IEEE}
+}
+```
